@@ -1,0 +1,14 @@
+# Default ignored files
+
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+
+
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+/.idea

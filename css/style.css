@@ -1,0 +1,244 @@
+:root {
+    --main-color: #ffc107;
+}
+* {
+    font-family: 微軟正黑體!important;
+    outline: none;
+    color: var(--main-color);
+}
+.p-30 {
+    padding: 30px;
+}
+.p-15 {
+    padding: 15px;
+}
+m-15 {
+    margin: 15px;
+}
+mt-15 {
+    margin-top: 15px;
+}
+.mt-30 {
+    margin-top: 30px;
+}
+.mt-45 {
+    margin-top: 45px;
+}
+.mt-60 {
+    margin-top: 60px;
+}
+
+.fcc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fec {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+body {
+    background-color: black;
+}
+.ipad {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+.header-logo {
+    height: 60px;
+}
+#root {
+    transform: scale(.9);
+}
+#map {
+    position: absolute;
+    background: black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+button.startTeach.btn.w-100.btn-outline-warning::after {
+    content: "new Feature";
+    background: white;
+    padding: 5px 10px;
+    border-radius: 10000px;
+    color: var(--main-color);
+    position: absolute;
+    top: -15px;
+    right: 0;
+    font-size: 12px;
+}
+.cube {
+    position: absolute;
+    transition: .558s linear;
+}
+.cube>.img {
+    background-size: 25px!important;
+    background-position: center!important;
+    background-repeat: no-repeat!important;
+    animation-timing-function: cubic-bezier(1, 0, 0, 1)!important;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+}
+.wall {
+    background: gray;
+    border: 2px gray solid;
+}
+.bean::after {
+    position: absolute;
+    content: '';
+    width: 7.5px;
+    height: 7.5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: gray;
+    border-radius: 50%;
+}
+.star>.img {
+    background-image: url('../img/Asset 11.png');
+}
+.pacman>.img {
+    background-image: url('../img/Asset 7.png');
+    animation: pacman .5s infinite;
+    /* filter: hue-rotate(270deg); */
+    z-index: 999;
+}
+@keyframes pacman {
+    to {
+        background-image: url('../img/Asset 8.png');
+    }
+}
+.ghost1>.img {
+    background-image: url('../img/Asset 1.png');
+    animation: ghost1 .5s infinite;
+}
+@keyframes ghost1 {
+    to {
+        background-image: url('../img/Asset 2.png');
+    }
+}
+.ghost2>.img {
+    background-image: url('../img/Asset 3.png');
+    animation: ghost2 .5s infinite;
+}
+@keyframes ghost2 {
+    to {
+        background-image: url('../img/Asset 4.png');
+    }
+}
+.ghost3>.img {
+    background-image: url('../img/Asset 5.png');
+    animation: ghost3 .5s infinite;
+}
+@keyframes ghost3 {
+    to {
+        background-image: url('../img/Asset 6.png');
+    }
+}
+.mask {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999999;
+    background: #000;
+    color: var(--main-color);
+    width: 100vw;
+    height: 100vh;
+    /*background: rgba(255, 255, 255, .8) !important;*/
+}
+#lives>.pacman {
+    position: unset;
+    width: 38px;
+    height: 38px;
+}
+.pause {
+    animation-play-state: paused!important;
+}
+.z-index9999 {
+    z-index: 9999!important;
+}
+
+#nearPacman {
+    width: calc(100% - 30px);
+    position: absolute;
+    top: 30px;
+    z-index: 99999;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: rgba(248, 215, 218, .7)!important;
+    backdrop-filter: saturate(180%) blur(30px);
+}
+.player-name-field {
+    background: transparent;
+    color: var(--main-color);
+    border-bottom: 0.1px solid var(--main-color)!important;
+}
+
+/* loading code */
+
+.loading-layout {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(30px) saturate(180%);
+    z-index: 9999999999999999!important;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s ease-in-out;
+    transform: scale(1.1);
+}
+.loading-ani-show {
+    opacity: 1!important;
+    visibility: visible!important;
+}
+.loading-ani-container {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    font-size: 32px!important;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+}
+.loading-bar {
+    position: absolute;
+    left: 0.4629em;
+    bottom: 0;
+    width: 0.074em;
+    height: 0.2777em;
+    border-radius: 0.0555em;
+    background-color: transparent;
+    -webkit-transform-origin: center -0.2222em;
+    -ms-transform-origin: center -0.2222em;
+    transform-origin: center -0.2222em;
+    -webkit-animation: spinner-fade 1s infinite linear;
+    animation: spinner-fade 1s infinite linear;
+    font-size: 32px!important;
+}
+@-webkit-keyframes spinner-fade {
+    0% {
+        background-color: #69717d;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
+
+@keyframes spinner-fade {
+    0% {
+        background-color: #69717d;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
