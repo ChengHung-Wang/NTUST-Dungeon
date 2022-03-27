@@ -4,7 +4,6 @@
 * {
     font-family: 微軟正黑體!important;
     outline: none;
-    color: var(--main-color);
 }
 .p-30 {
     padding: 30px;
@@ -48,6 +47,9 @@ body {
 }
 .header-logo {
     height: 60px;
+}
+.status-top {
+    color: var(--main-color);
 }
 #root {
     transform: scale(.9);
@@ -105,7 +107,7 @@ button.startTeach.btn.w-100.btn-outline-warning::after {
     background-image: url('../img/Asset 7.png');
     animation: pacman .5s infinite;
     /* filter: hue-rotate(270deg); */
-    z-index: 999;
+    z-index: 99;
 }
 @keyframes pacman {
     to {
@@ -144,7 +146,7 @@ button.startTeach.btn.w-100.btn-outline-warning::after {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 9999999;
+    z-index: 999;
     background: #000;
     color: var(--main-color);
     width: 100vw;
@@ -160,18 +162,19 @@ button.startTeach.btn.w-100.btn-outline-warning::after {
     animation-play-state: paused!important;
 }
 .z-index9999 {
-    z-index: 9999!important;
+    z-index: 999!important;
 }
 
 #nearPacman {
     width: calc(100% - 30px);
     position: absolute;
     top: 30px;
-    z-index: 99999;
+    z-index: 9999;
     left: 50%;
     transform: translate(-50%, 0);
     background: rgba(248, 215, 218, .7)!important;
     backdrop-filter: saturate(180%) blur(30px);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
 }
 .player-name-field {
     background: transparent;
@@ -186,13 +189,18 @@ button.startTeach.btn.w-100.btn-outline-warning::after {
     width: 100vw;
     height: 100vh;
     backdrop-filter: blur(30px) saturate(180%);
-    z-index: 9999999999999999!important;
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    z-index: 99999999999!important;
     top: 0;
     left: 0;
-    opacity: 0;
-    visibility: hidden;
     transition: .2s ease-in-out;
     transform: scale(1.1);
+    opacity: 1;
+    visibility: visible;
+}
+.loading-ani-hide {
+    opacity: 0!important;
+    visibility: hidden!important;
 }
 .loading-ani-show {
     opacity: 1!important;
@@ -241,4 +249,20 @@ button.startTeach.btn.w-100.btn-outline-warning::after {
     100% {
         background-color: transparent;
     }
+}
+
+.teach-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 60px;
+}
+.teach-img> img{
+    width: 100%;
+    max-height: 330px;
+    object-fit: contain;
+}
+
+.shadow {
+    filter: drop-shadow(0 12px 12px rgba(0,0,0,.25))!important;
 }

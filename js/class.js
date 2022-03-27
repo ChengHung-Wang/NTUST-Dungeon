@@ -9,7 +9,7 @@ class  Finder {
         this.col = 0;
         this.row = 0;
         this.width = 0;
-        this.level = 1;
+        this.level = 2;
         this.lives = 3;
         this.state =  false;
         this.teach = false;
@@ -19,6 +19,7 @@ class  Finder {
         this.ghostCanMove = true;
         this.pacmanLastMove = null;
         this.ghostLastMove = null;
+        this.anyGoOperation = false;
         this.lastFindPacman = Date.now();
         this.fontsize = 16;
         this.levelPlist = [
@@ -111,6 +112,20 @@ class  Finder {
     set username(value) {
         $("#username").text(value);
         this._username = value;
+    }
+
+    get width() {
+        return this._width;
+    }
+    set width(width) {
+        this._width = width;
+    }
+
+    get anyGoOperation() {
+        return this._anyGoOperation;
+    }
+    set anyGoOperation(bool) {
+        this._anyGoOperation = bool;
     }
 
     init() {
@@ -468,6 +483,18 @@ class PacMan extends Movable {
                 this.$html.css(this.css);
                 this.GGState = false;
             }, 100);
+        }
+    }
+
+    // week 4 作業需求
+    anyGo(targetTop, targetLeft) {
+        if (this.checkCanVia(targetTop, targetLeft)) {
+            this.css.top = targetTop;
+            this.css.left = targetLeft;
+            this.$html.css(this.css);
+            return true;
+        }else {
+            return false;
         }
     }
 

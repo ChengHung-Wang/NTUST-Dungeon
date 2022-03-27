@@ -7,89 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>天大地大台科大地宮</title>
     <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/vue.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-4.0.0.js"></script>
+    <script src="js/element-ui.js"></script>
     <script src="js/class.js"></script>
-    <script src="js/vue.js"></script>
+    <script src="js/index-traditional.js"></script>
     <link rel="stylesheet" href="css/bootstrap-4.0.0.css">
+    <link rel="stylesheet" href="css/element-ui.css">
     <link rel="stylesheet" href="css/style.css">
-    <script>
-        let plist = new Finder();
-        let hasStart = false;
-
-        $(function() {
-            plist.init();
-
-            $("body").on('keydown', (e) => {
-                if (e.originalEvent.code == "Space" && hasStart) {
-                    plist.start_pause();
-                }
-            });
-            //plist.initGame();
-            $(".fontSet").click(function() {
-                plist.fontsize += parseInt($(this).attr('data'));
-            })
-            $(".nameSet").on("keydown", function() {
-                plist.username = "" + $(this).val();
-            })
-            $(".levelSet").click(function() {
-                plist.level = $(this).attr('data');
-            })
-            $(".startGram").click(function() {
-                plist.initGame();
-                hasStart = true;
-
-            })
-            $(".stateSet").click(function() {
-                plist.start_pause();
-            })
-            if(!("ontouchstart" in document)) {
-                $(".side-control").hide();
-            }
-            $(".startTeach").click(function() {
-                teach();
-            })
-            $(".exit_teach").click(function() {
-                $("#teach").fadeOut();
-                plist.teach = false;
-                teach_now = 0;
-            })
-            $(".next_teach").click(function() {
-                teach_next();
-            })
-        })
-        let teach_plist = [
-            "你可以設定遊戲難度 字體大小，玩家姓名",
-            "碰到Trigger+10分，碰到星星+50分。如果碰到鬼您將返回起始點，並且扣除一個生命值(血量)，扣三次生命值則結束遊戲。得到的分數將是您的攻擊能力（戰績）",
-            "注意：如果如果靠近鬼方圓兩格內，鬼將會自動追蹤您的位置，並且上方會出現告警",
-            "上面為遊戲狀態欄位，有: 分數（攻擊能力、戰績），玩家姓名，難度，遊戲時間，血量(生命值)",
-            "下方為控制方向用按鈕（僅於觸控模式中顯示），遊戲開始、暫停按鈕，字體大小調整"
-        ];
-        let teach_now = 0;
-        function teach() {
-            plist.teach = true;
-            $("#teach").show();
-            teach_next();
-            $(".startGram").removeClass('btn-outline-warning');
-            $(".startGram").addClass("btn-warning");
-
-        }
-        function teach_next() {
-            if(teach_now <= teach_plist.length - 1){
-                $("#teach_img").attr("src", "img/" + teach_now + ".png");
-                $("#teach_description").text(teach_plist[teach_now]);
-                teach_now++;
-            }else {
-                plist.initGame();
-                teach_now = 0;
-            }
-        }
-
-    </script>
 </head>
 <body>
     <div id="root">
-        <div class="loading-layout" :class="{'loading-ani-show': loading}">
+        <!--    教學模式    -->
+        <el-dialog
+            title="教學模式"
+            :visible.sync="teachMode"
+            width="70%"
+            :modal-append-to-body="false"
+        >
+            <div class="teach-img">
+                <img :src="teachConfig[teachIndex].img" alt="" v-bind:class="{'shadow': teachConfig[teachIndex].shadow, 'w-50': teachConfig[teachIndex].width != undefined}">
+            </div>
+            <div v-html="teachConfig[teachIndex].main"></div>
+            <div class="fec">
+                <el-button @click="teachIndex = (teachIndex - 1 + teachConfig.length) % teachConfig.length" icon="el-icon-arrow-left" circle plain></el-button>
+                <el-button @click="teachIndex = (teachIndex + 1 + teachConfig.length) % teachConfig.length" icon="el-icon-arrow-right" circle plain></el-button>
+            </div>
+        </el-dialog>
+        <div class="loading-layout" :class="{'loading-ani-hide': hideLoading}">
             <div class="loading-ani-container">
                 <div class="loading-bar" v-for="index in 12" :style="{
                             '-webkit-animation-delay': ((index - 1) * (0.083)) + 's',
@@ -102,12 +48,13 @@
                 </div>
             </div>
         </div>
+
         <div class="ipad container">
             <div class="alert alert-danger" id="nearPacman" role="alert" style="display: none;">
                 Ghost已經追蹤到您，請您儘速離開。
                 <strong id="ghost-side" style="font-weight: 900"></strong>
             </div>
-            <div class="mask" id="teach" style="z-index: 99999999; display: none;">
+            <div class="mask" id="teach" style="z-index: 99; display: none;">
                 <div class="container row">
                     <div class="col-12">
                         <img src="" id="teach_img" class="w-100" style="border: 2px red solid;" alt="">
@@ -162,10 +109,10 @@
                             <input type="button" class="levelSet btn w-100 btn-outline-warning" data="2" value='困難'>
                         </div>
                         <div class="col-3">
-                            <input type="button" class="startGram btn w-100 btn-outline-warning" value="開始遊戲">
+                            <input type="button" class="startGram btn w-100 btn-outline-warning" @click="startGame" value="開始遊戲">
                         </div>
                         <div class="col-3">
-                            <button type="button" class="startTeach btn w-100 btn-outline-warning">
+                            <button type="button" @click="teachMode = true" class="startTeach btn w-100 btn-outline-warning">
                                 教學
                             </button>
                         </div>
@@ -184,7 +131,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container status-top">
                 <div class="row">
                     <div class="col-4 p-15">
                         <img src="img/logo_original.svg" class="header-logo" alt="">
