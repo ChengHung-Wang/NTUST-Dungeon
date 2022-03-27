@@ -2,7 +2,7 @@ let app = new Vue({
     el: "#root",
     data() {
         return {
-            hideLoading: true,
+            hideLoading: false,
             teachMode: false,
             teachIndex: 0,
             teachConfig: [
