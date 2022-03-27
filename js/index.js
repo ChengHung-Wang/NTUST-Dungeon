@@ -49,7 +49,7 @@ let app = new Vue({
                     main: `
                        <h3>瞬移功能</h3>
                        <p class="">
-                            您可以按下Command + G組合鍵，可以輸入<br>
+                            您可以在遊戲進行中按下Command + G組合鍵或Option + G，可以輸入<br>
                             <strong class="text-danger">Move (a,b) 來移動方圓一格的距離，每一次的移動會扣除50分</strong>輸入<br>
                             <strong class="text-danger">Jump (a,b) 直接跳到該位置，每一次的移動會扣除200分</strong>。<br>
                             若您輸入的位置或是您的積分不合理，我們將有權拒絕您的請求。
