@@ -316,12 +316,12 @@ class Star extends Drawable{
     touch(obj) {
         this.plist.score += 50;
         if(obj instanceof PacMan) {
-            setInterval(() => {
-                if(this.plist.teach) {
-                    this.plist.reset();
-                    $("#home").show();
-                }
-            }, 500);
+            // setInterval(() => {
+            //     if(this.plist.teach) {
+            //         this.plist.reset();
+            //         $("#home").show();
+            //     }
+            // }, 500);
             this.remove();
         }
     }
@@ -397,7 +397,6 @@ class Ghost extends Movable {
                     (this.css.left + ((this.moveOption[index].left) * 2) == pacmanLocation.css.left)
                 )
             ) {
-                console.log("pacman near");
                 // check it can through
                 if (this.checkCanVia(this.css.top + this.moveOption[index].top, this.css.left + this.moveOption[index].left)) {
                     this.defaultTo = index;

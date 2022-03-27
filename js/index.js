@@ -44,7 +44,6 @@ let app = new Vue({
                 },
                 {
                     img: "./img/teach/command+key_Map.svg",
-                    width: "50%",
                     shadow: false,
                     main: `
                        <h3>瞬移功能</h3>
@@ -52,6 +51,7 @@ let app = new Vue({
                             您可以在遊戲進行中按下Command + G組合鍵或Option + G，可以輸入<br>
                             <strong class="text-danger">Move (a,b) 來移動方圓一格的距離，每一次的移動會扣除50分</strong>輸入<br>
                             <strong class="text-danger">Jump (a,b) 直接跳到該位置，每一次的移動會扣除200分</strong>。<br>
+                            如果輸入未知的格式將由最後一個字判斷移動方向(WASD)<br>
                             若您輸入的位置或是您的積分不合理，我們將有權拒絕您的請求。
                        </p>
                     `
@@ -253,6 +253,15 @@ let app = new Vue({
                 this.plist.anyGoOperation = false;
             });
 
+        }
+    },
+    watch: {
+        teachMode() {
+            if (this.teachMode) {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                }
+            }
         }
     }
 })
