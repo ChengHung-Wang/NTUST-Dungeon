@@ -81,11 +81,10 @@ let app = new Vue({
             this.hideLoading = true;
         }, 2000);
         $(window).on("keydown", (e) => {
-            if (e.metaKey && (e.originalEvent.code == "KeyG")) {
+            if ((e.metaKey || e.altKey) && (e.originalEvent.code == "KeyG")) {
                 window.event.preventDefault();
                 window.event.cancelBubble = true//IE
                 e.preventDefault();
-                console.log("move");
                 if (this.plist.state) {
                     this.moveAction();
                 }
@@ -198,7 +197,6 @@ let app = new Vue({
                                 row: 0
                             }
                             input = input.toUpperCase();
-                            console.log(input);
                             switch (input) {
                                 case "W": // up
                                     offset.row = -1;
